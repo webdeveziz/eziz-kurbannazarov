@@ -20,7 +20,7 @@ function App({ store }) {
       </div>
       <div className="App-center">
         <div className="List">
-          {list.map((item, index) => {
+          {list.map((item) => {
             const uniqId = generateUniqueId()
             return (
               <div key={uniqId} className="List-item">
@@ -28,7 +28,7 @@ function App({ store }) {
                   className={'Item' + (item.selected ? ' Item_selected' : '')}
                   onClick={() => store.selectItem(item.code)}
                 >
-                  <div className="Item-code">{index + 1}</div>
+                  <div className="Item-code">{item.code}</div>
                   <div className="Item-title">
                     {item.title + selectedNTimes(item.countSelected)}
                   </div>
