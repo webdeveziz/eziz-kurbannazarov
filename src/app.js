@@ -1,5 +1,5 @@
 import React from 'react'
-import { createElement, generateUniqueId, selectedNTimes } from './utils.js'
+import { generateUniqueId, selectedNTimes } from './utils.js'
 import './styles.css'
 
 /**
@@ -33,7 +33,12 @@ function App({ store }) {
                     {item.title + selectedNTimes(item.countSelected)}
                   </div>
                   <div className="Item-actions">
-                    <button onClick={() => store.deleteItem(item.code)}>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        store.deleteItem(item.code)
+                      }}
+                    >
                       Удалить
                     </button>
                   </div>

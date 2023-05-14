@@ -1,5 +1,3 @@
-import { generateUniqueId } from './utils'
-
 /**
  * Хранилище состояния приложения
  */
@@ -7,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState
     this.listeners = [] // Слушатели изменений состояния
+    // Уникальный код для списка
     this.uniqCode = initState?.list ? initState.list.length : 0
   }
 
@@ -62,7 +61,7 @@ class Store {
   deleteItem(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.filter((item) => item.code !== code),
+      list: this.state.list.filter((elem) => elem.code !== code),
     })
   }
 
@@ -76,13 +75,14 @@ class Store {
       list: this.state.list.map((item) => {
         if (item.code === code) {
           item.selected = !item.selected
-          if (item.selected)
+          if (item.selected) {
             if (item.countSelected) item.countSelected += 1
             else item.countSelected = 1
-          else item.countSelected += 0
+          } else item.countSelected += 0
         } else {
           item.selected = false
         }
+
         return item
       }),
     })
