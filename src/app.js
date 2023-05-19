@@ -1,42 +1,63 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import React, { useCallback, useState } from 'react'
+import List from './components/list'
+import Controls from './components/controls'
+import Head from './components/head'
+import PageLayout from './components/page-layout'
+import Cart from './components/cart'
 
 /**
- * 
+ *
  * Приложение
  * @param store {Store} Хранилище состояния приложения
  * @returns {React.ReactElement}
  */
-function App({store}) {
-
-  const list = store.getState().list;
+function App({ store }) {
+  const [modalCart, setModalCart] = useState(false)
+  const list = store.getState().list
 
   const callbacks = {
-    onDeleteItem: useCallback((code) => {
-      store.deleteItem(code);
-    }, [store]),
+    onAddToCart: useCallback(
+      (code) => {
+        store.addProduct(code)
+      },
+      [store],
+    ),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
-    }, [store]),
+    onDelete: useCallback(
+      (code) => {
+        store.deleteProduct(code)
+      },
+      [store],
+    ),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onOpenCart: useCallback(() => {
+      setModalCart(true)
+    }, []),
+
+    onCloseCart: useCallback(() => {
+      setModalCart(false)
+    }, []),
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title="Магазин" />
+      <Controls
+        onOpenCart={callbacks.onOpenCart}
+        totalPrice={store.totalPrice}
+        totalCount={store.totalCount}
+      />
+      <List list={list} onAddToCart={callbacks.onAddToCart} />
+      {modalCart && (
+        <Cart
+          products={list}
+          totalPrice={store.totalPrice}
+          onCloseCart={callbacks.onCloseCart}
+          onDelete={callbacks.onDelete}
+        />
+      )}
     </PageLayout>
-  );
+  )
 }
 
-export default App;
+export default App
