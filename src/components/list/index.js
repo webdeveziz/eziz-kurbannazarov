@@ -4,12 +4,12 @@ import Item from '../item'
 
 import './style.css'
 
-function List({ list, onAddToCart }) {
+function List({ list, onClick, textBtn }) {
   return (
     <div className="List">
       {list.map((item) => (
         <div key={item.code} className="List-item">
-          <Item item={item} onAddToCart={onAddToCart} />
+          <Item item={item} onClick={onClick} textBtn={textBtn} />
         </div>
       ))}
     </div>
@@ -22,11 +22,12 @@ List.propTypes = {
       code: PropTypes.number,
     }),
   ).isRequired,
-  onAddToCart: PropTypes.func,
+  onClick: PropTypes.func,
+  textBtn: PropTypes.string,
 }
 
 List.defaultProps = {
-  onAddToCart: () => {},
+  onClick: () => {},
 }
 
 export default React.memo(List)

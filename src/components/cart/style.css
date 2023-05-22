@@ -16,6 +16,7 @@
   top: 50%;
   background-color: #fff;
   padding-bottom: 20px;
+  border-radius: 10px;
 }
 
 .Cart-header {
@@ -26,6 +27,11 @@
   align-items: center;
   padding-left: 20px;
   padding-right: 27px;
+  border-radius: 10px;
+}
+.Cart-content {
+  max-height: 830px;
+  overflow: auto;
 }
 .Cart-summ {
   display: flex;

@@ -14,6 +14,7 @@ import Cart from './components/cart'
 function App({ store }) {
   const [modalCart, setModalCart] = useState(false)
   const list = store.getState().list
+  const products = list.filter((elem) => elem.count)
 
   const callbacks = {
     onAddToCart: useCallback(
@@ -46,11 +47,12 @@ function App({ store }) {
         onOpenCart={callbacks.onOpenCart}
         totalPrice={store.totalPrice}
         totalCount={store.totalCount}
+        products={products}
       />
-      <List list={list} onAddToCart={callbacks.onAddToCart} />
+      <List list={list} onClick={callbacks.onAddToCart} textBtn="Добавить" />
       {modalCart && (
         <Cart
-          products={list}
+          products={products}
           totalPrice={store.totalPrice}
           onCloseCart={callbacks.onCloseCart}
           onDelete={callbacks.onDelete}

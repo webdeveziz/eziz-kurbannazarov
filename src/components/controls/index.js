@@ -4,13 +4,13 @@ import { plural } from '../../utils'
 
 import './style.css'
 
-function Controls({ onOpenCart, totalCount, totalPrice }) {
+function Controls({ onOpenCart, totalPrice, products }) {
   return (
     <div className="Controls">
       <span className="Controls-content">
         В корзине:
-        {totalCount ? (
-          <strong>{`${totalCount} ${plural(totalCount, {
+        {products.length ? (
+          <strong>{`${products.length} ${plural(products.length, {
             one: 'товар',
             few: 'товара',
             many: 'товаров',

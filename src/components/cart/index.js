@@ -1,17 +1,19 @@
 import React from 'react'
-import PropTypes, { number, string } from 'prop-types'
+import PropTypes from 'prop-types'
 import { cn as bem } from '@bem-react/classname'
+
 import './style.css'
-import CartItem from '../cartItem'
+import List from '../list'
 
 function Cart(props) {
   const cn = bem('Cart')
 
-  const products = props.products.filter((elem) => elem.count)
-
   const callbacks = {
     onClose: () => {
       props.onCloseCart(false)
+    },
+    onDelete: (code) => {
+      props.onDelete(code)
     },
   }
 
@@ -22,18 +24,18 @@ function Cart(props) {
           <h1>Корзина</h1>
           <button onClick={callbacks.onClose}>Закрыть</button>
         </div>
-        {products.length > 0 ? (
+        {props.products.length > 0 ? (
           <>
             <div className={cn('item')}></div>
-            {products.map((product) => {
-              return (
-                <CartItem
-                  onDelete={props.onDelete}
-                  {...product}
-                  key={product?.code}
+            {
+              <div className={cn('content')}>
+                <List
+                  list={props.products}
+                  onClick={callbacks.onDelete}
+                  textBtn="Удалить"
                 />
-              )
-            })}
+              </div>
+            }
             <div className={cn('summ')}>
               <span>
                 <strong>Итого</strong>

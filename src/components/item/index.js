@@ -5,9 +5,9 @@ import './style.css'
 
 function Item(props) {
   const callbacks = {
-    onAdd: (e) => {
+    onClick: (e) => {
       e.stopPropagation()
-      props.onAddToCart(props.item.code)
+      props.onClick(props.item.code)
     },
   }
 
@@ -17,23 +17,25 @@ function Item(props) {
       <div className="Item-title">{props.item.title}</div>
       <div className="Item-actions">
         <div>{props.item.price} ₽</div>
-        <button onClick={callbacks.onAdd}>Добавить</button>
+        {props.item?.count && <div>{props.item.count} шт</div>}
+        <button onClick={callbacks.onClick}>{props.textBtn}</button>
       </div>
     </div>
   )
 }
 
 Item.propTypes = {
+  textBtn: PropTypes.string,
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
     count: PropTypes.number,
   }).isRequired,
-  onAddToCart: PropTypes.func,
+  onClick: PropTypes.func,
 }
 
 Item.defaultProps = {
-  onAddToCart: () => {},
+  onClick: () => {},
 }
 
 export default React.memo(Item)

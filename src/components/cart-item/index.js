@@ -19,7 +19,7 @@ function CartItem(props) {
       <div className={cn('code')}>{props.code}</div>
       <div className={cn('title')}>{props.title}</div>
       <div className={cn('actions')}>
-        <div>{props.price} Р</div>
+        <div>{props.price} ₽</div>
         <div>{props.count} шт</div>
         <button onClick={(e) => callbacks.onDelete(e, props.code)}>
           Удалить
